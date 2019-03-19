@@ -1,3 +1,3 @@
-![keras](keras_logo.png)
+![keras](Keras_logo.png)
 
 ![talos](talos_logo.png)
