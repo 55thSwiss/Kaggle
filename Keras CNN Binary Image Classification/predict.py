@@ -45,7 +45,10 @@ model.compile(loss='binary_crossentropy',
 
 model = load_model('chips.h5')
 
-test_dir = (r'__your test directory here__')
+test_dir = (r'single_class_test_directory_here')
+
+predictions = []
+total_score = []
 
 for filename in os.listdir(test_dir):
     imagePath = str(test_dir) + filename
@@ -57,3 +60,24 @@ for filename in os.listdir(test_dir):
     # predict the result
     result = model.predict(test_image)
     print(result)
+    predictions.append(result)
+
+for predict in predictions:
+    if predict <= .5:
+        score = 0
+    else:
+        score = 1
+    total_score.append(score)
+
+print('-' * 20)
+print(len(total_score))
+print(sum(total_score))
+print('-' * 20)
+
+# depending on which class is being scored
+if sum(total_score) > 250:
+    score = (sum(total_score) / len(total_score))
+else:
+    score = 1 - (sum(total_score) / len(total_score))
+
+print(str(score*100) + '%')
