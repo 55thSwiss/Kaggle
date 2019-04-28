@@ -26,7 +26,7 @@ from keras.preprocessing.image import load_img
 '''
 
 cwd = os.getcwd()
-path = str(cwd) + (r'\originals\1\\')
+path = (str(cwd) + (r'\Charlie\Originals'))
 
 # for filename in os.listdir(path):
 # rescaling is disabled to allow the images to be viewed
@@ -39,35 +39,36 @@ datagen = ImageDataGenerator(
         horizontal_flip=True,
         fill_mode='nearest')
 
-# this is a PIL image # path + filename
-img = load_img(r'C:\Users\Mac2\Desktop\CNN\Chips\originals\1\1_B.jpg')
-# this is a Numpy array with shape (3, 150, 150)
-x = img_to_array(img)
-# this is a Numpy array with shape (1, 3, 150, 150)
-x = x.reshape((1,) + x.shape)
+for filename in os.listdir(path):
+    # this is a PIL image # path + filename
+    img = load_img(str(path) + '\\' + str(filename))
+    # this is a Numpy array with shape (3, 150, 150)
+    x = img_to_array(img)
+    # this is a Numpy array with shape (1, 3, 150, 150)
+    x = x.reshape((1,) + x.shape)
 
-# the .flow() command below generates batches of randomly transformed
-# images and saves the results to save_to_dir - remember to change prefix
-i = 0
-for batch in datagen.flow(x, batch_size=1,
-                          save_to_dir=(str(cwd) + r'\augmented\train\1'),
-                          save_prefix='1', save_format='jpeg'):
-    i += 1
-    if i > 20:  # change the amount of augmented data you want here
-        break  # otherwise the generator would loop indefinitely
+    # the .flow() command below generates batches of randomly transformed
+    # images and saves the results to save_to_dir - remember to change prefix
+    i = 0
+    for batch in datagen.flow(x, batch_size=1,
+                              save_to_dir=(str(cwd) + r'\Charlie\Augmented\train'),
+                              save_prefix='1', save_format='jpeg'):
+        i += 1
+        if i > 400:  # change the amount of augmented data you want here
+            break  # otherwise the generator would loop indefinitely
 
-i = 0
-for batch in datagen.flow(x, batch_size=1,
-                          save_to_dir=(str(cwd) + r'\augmented\test\1'),
-                          save_prefix='1', save_format='jpeg'):
-    i += 1
-    if i > 280:  # change the amount of augmented data you want here
-        break  # otherwise the generator would loop indefinitely
+    i = 0
+    for batch in datagen.flow(x, batch_size=1,
+                              save_to_dir=(str(cwd) + r'\Charlie\Augmented\test'),
+                              save_prefix='1', save_format='jpeg'):
+        i += 1
+        if i > 100:  # change the amount of augmented data you want here
+            break  # otherwise the generator would loop indefinitely
 
-i = 0
-for batch in datagen.flow(x, batch_size=1,
-                          save_to_dir=(str(cwd) + r'\augmented\validation\1'),
-                          save_prefix='1', save_format='jpeg'):
-    i += 1
-    if i > 280:  # change the amount of augmented data you want here
-        break  # otherwise the generator would loop indefinitely
+    i = 0
+    for batch in datagen.flow(x, batch_size=1,
+                              save_to_dir=(str(cwd) + r'\Charlie\Augmented\validation'),
+                              save_prefix='1', save_format='jpeg'):
+        i += 1
+        if i > 200:  # change the amount of augmented data you want here
+            break  # otherwise the generator would loop indefinitely
